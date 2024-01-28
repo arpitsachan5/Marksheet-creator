@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.0/css/all.min.css">
+    <script src="js/index.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <h1 id="title">Marksheet Creator</h1>
+        <div id="form-card">
+            <form id="marksheet-form">
+                <div id="form-box">
+                    
+                    <div class="form-group">
+                        <label>Candidate Image</label>
+                        <input name="candidateImage" type="file" accept="image/*"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Candidate's Name</label>
+                        <input name="candidateName" placeholder="Name" type="text"/>
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Father's Name</label>
+                        <input name="fatherName" placeholder="Name" type="text"/>
+                    </div>
+                </div>
+                <button id="subjects" type="button">
+                    <i class="fa fa-plus"></i>
+                    Add Subjects</button>
+
+                    <div id="dynamic-area">
+
+                    </div>
+
+                    <button id="generate">
+                        <i class="fa fa-download"></i>
+                        Generate Your Marksheet Now
+                    </button>
+            </form>
+        </div>
+        <div id="form-card">
+            <table width = "100%">
+                <tr>
+                    <th colspan="3" align="right">
+                        Total Marks&nbsp;
+                    </th>
+                    <td>
+                        &nbsp;600
+                    </td>
+                </tr>
+
+                <tr>
+                    <th width="100" align="right">
+                        Grade&nbsp;
+                    </th>
+                    <td>
+                        &nbsp;A+
+                    </td>
+
+                    <th width="150px" align="right">
+                        Percentage&nbsp;
+                    </th>
+                    <td width="100">
+                        &nbsp;78%
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
