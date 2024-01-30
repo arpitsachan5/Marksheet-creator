@@ -12,6 +12,7 @@ window.onload = () => {
         subject.name = "subject";
         subject.placeholder = "Subject Name";
         subject.type = "text";
+        subject.className="subjects";
 
         // fullmarks
 
@@ -20,6 +21,7 @@ window.onload = () => {
         fullMarks.placeholder = "Full Marks";
         fullMarks.type = "number";
         fullMarks.value = 100;
+        fullMarks.className = "fullMarks"
 
         //obtainedmarks
 
@@ -243,12 +245,25 @@ window.onload = () => {
         var standard = elements.class.value;
         var roll = elements.roll.value;
 
+        //Getting Subjects Value
+        var subjects = document.getElementsByClassName("subjects");
+        var fullMarks = document.getElementsByClassName("fullMarks");
+        var obm = document.getElementsByClassName("obtained-marks");
+        var subjectsBody = [];
+        for (i = 0; i<subjects.length; i++)
+        {
+            var subject= subjects[i].value;
+            var fullmarks = fullMarks[i].value;
+            var obtainedMarks = obm[i].value;
+            subjectsBody.push([subject , fullmarks , obtainedMarks]);
+        }
+
         //Generate PDF
         // live preview of logo and profile code is commented
         var logoWidth = 30;
         var pageWidth = doc.internal.pageSize.width;
         var schoolLogoLeftMargin = (pageWidth-logoWidth)/2;
-        doc.addImage(schoolUrl, 'PNG', schoolLogoLeftMargin,10,logoWidth,30);
+        doc.addImage(schoolUrl, 'PNG', schoolLogoLeftMargin,5,logoWidth,30);
         
 
         var schoolNameFontSize = 28;
@@ -264,13 +279,30 @@ window.onload = () => {
         doc.setFontSize(tagLineFontSize);
         doc.text(tagLine, tagLineLeftMargin, 55);
 
+        //Setting Student Table
         doc.autoTable(
             {
-                head: [['subjects', 'Fullmarks', 'Obtained Marks']],
+                margin: {top: 70},
                 body: [
-                        ['Maths', '100', '80'],
-                        ['English', '100', '78']
-                      ]
+                    [{content: 'Student`s Name' , styles: {fontStyle: 'bold' , fillColor: 'dodgerblue' , textColor:'white'}}, candidateName , 
+                    {content: 'Father`s Name' , styles: {fontStyle: 'bold' , fillColor: 'dodgerblue' , textColor:'white'}}, fatherName],
+
+
+                    [{content: 'DOB' , styles: {fontStyle: 'bold'}}, dob , 
+                    {content: 'Gender' , styles: {fontStyle: 'bold'}}, gender],
+
+
+                    [{content: 'Class' , styles: {fontStyle: 'bold' , fillColor: 'dodgerblue' , textColor:'white'}}, standard , 
+                    {content: 'Roll' , styles: {fontStyle: 'bold' , fillColor: 'dodgerblue' , textColor:'white'}}, roll]
+                ]
+            }
+        );
+
+        doc.autoTable(
+            {
+                headStyles: { fillColor: 'dodgerblue' , textColor: 'white'},
+                head: [['Subjects' , 'Full Marks' , 'Obtained Marks']],
+                body: subjectsBody
             }
         )
 
