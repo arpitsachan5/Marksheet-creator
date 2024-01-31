@@ -257,7 +257,6 @@ window.onload = () => {
             var obtainedMarks = obm[i].value;
             subjectsBody.push([subject , fullmarks , obtainedMarks]);
         }
-
         //Generate PDF
         // live preview of logo and profile code is commented
         var logoWidth = 30;
@@ -284,31 +283,64 @@ window.onload = () => {
             {
                 margin: {top: 70},
                 body: [
-                    [{content: 'Student`s Name' , styles: {fontStyle: 'bold' , fillColor: 'dodgerblue' , textColor:'white'}}, candidateName , 
-                    {content: 'Father`s Name' , styles: {fontStyle: 'bold' , fillColor: 'dodgerblue' , textColor:'white'}}, fatherName],
+                    [{content: 'Student`s Name' , styles: {fontStyle: 'bold' , fillColor: '#2E80BA' , textColor:'white'}}, candidateName , 
+                    {content: 'Father`s Name' , styles: {fontStyle: 'bold' , fillColor: '#2E80BA' , textColor:'white'}}, fatherName],
 
 
                     [{content: 'DOB' , styles: {fontStyle: 'bold'}}, dob , 
                     {content: 'Gender' , styles: {fontStyle: 'bold'}}, gender],
 
 
-                    [{content: 'Class' , styles: {fontStyle: 'bold' , fillColor: 'dodgerblue' , textColor:'white'}}, standard , 
-                    {content: 'Roll' , styles: {fontStyle: 'bold' , fillColor: 'dodgerblue' , textColor:'white'}}, roll]
+                    [{content: 'Class' , styles: {fontStyle: 'bold' , fillColor: '#2E80BA' , textColor:'white'}}, standard , 
+                    {content: 'Roll' , styles: {fontStyle: 'bold' , fillColor: '#2E80BA' , textColor:'white'}}, roll]
                 ]
             }
         );
 
         doc.autoTable(
             {
-                headStyles: { fillColor: 'dodgerblue' , textColor: 'white'},
+                headStyles: { fillColor: '#2E80BA' , textColor: 'white'},
                 head: [['Subjects' , 'Full Marks' , 'Obtained Marks']],
                 body: subjectsBody
             }
         )
 
 
+        //marks Table
+         var total = 0
+        for (var i =0; i<obm.length; i++)
+        {
+            total = total+Number(obm[i].value);
+        }
+        var percent =(total/obm.length).toFixed(1);
 
+        //percent
 
+        var percent = (total/obm.length).toFixed(1);
+        var grades = '';
+
+        if(percent > 90)  grades = "A+";
+
+        else if (percent > 80) grades = "A";
+
+        else if (percent > 70) grades = "B";
+
+        else if (percent > 60) grades = "B+";
+
+        else if (percent > 50) grades = "C";
+
+        else if (percent > 40) grades = "D";
+
+        else grades = "E";
+        doc.autoTable({
+            body:[
+                ['Grade','Percentage','Total Marks'],
+                [grades,percent+'%',total]
+            ]
+        })
+        
+
+        //Download PDF
         doc.save("marksheet.pdf");
     }
 }
